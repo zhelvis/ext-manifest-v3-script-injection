@@ -1,0 +1,1 @@
+# ext-manifest-v3-script-injection

@@ -15,7 +15,9 @@ function injectPageScript(payload) {
     script.setAttribute('src', chrome.runtime.getURL("page-script.js"));
 
     script.onload = () => {
-        window.postMessage(payload, "*");
+        document.dispatchEvent(new CustomEvent('message', {
+            detail: payload 
+        }))
         document.head.removeChild(script)
     }
 

@@ -1,0 +1,32 @@
+{
+    "name": "Script injector",
+    "action": {},
+    "manifest_version": 3,
+    "version": "0.1",
+    "description": "script injection",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+          "matches": [
+            "http://*/*",
+            "https://*/*"
+        ],
+          "js": ["content-script.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["page-script.js"],
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ]
+        }
+    ]
+}

@@ -6,7 +6,7 @@
  * 'eval' call or injecting script tag with inline source in this context cause CSP error,
  *  but we can load script from web_accessible_resources and execute script string there 
  * 
- * window.postMessage is used for transferring the payload to the page script
+ * document.dispatchEvent with custom event is used for transferring the payload to the page script
  */
 function injectPageScript(payload) {
     const script = document.createElement("script");
@@ -15,6 +15,10 @@ function injectPageScript(payload) {
     script.setAttribute('src', chrome.runtime.getURL("page-script.js"));
 
     script.onload = () => {
+        /*
+         * Using document.dispatchEvent instead window.postMessage by security reason
+         * https://github.com/w3c/webextensions/issues/78#issuecomment-915272953
+         */
         document.dispatchEvent(new CustomEvent('message', {
             detail: payload 
         }))
